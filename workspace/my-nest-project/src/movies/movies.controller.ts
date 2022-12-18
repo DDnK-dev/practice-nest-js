@@ -8,18 +8,21 @@ import {
   Body,
   Query,
 } from '@nestjs/common';
+import { MoviesService } from './movies.service';
 
 @Controller('movies') // URL에 movies가 붙음
 export class MoviesController {
+  construcor(private readonly moviesService: MoviesService) {}
+
   @Get()
   getaAll() {
-    return 'This will return all movies';
+    return this.moviesService.getAll();
   }
 
   // id 보다 아래에 있으면 search가 id로 인식됨...
   @Get('search')
   search(@Query('year') searchingYear: string) {
-    return `We are searching for a movie made after: ${searchingYear}`;
+    return this.moviesService.search(searchingYear);
   }
 
   // id를 movieId로 받음

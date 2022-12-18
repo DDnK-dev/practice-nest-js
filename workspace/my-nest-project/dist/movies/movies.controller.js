@@ -15,11 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MoviesController = void 0;
 const common_1 = require("@nestjs/common");
 let MoviesController = class MoviesController {
+    construcor(moviesService) { }
     getaAll() {
-        return 'This will return all movies';
+        return this.moviesService.getAll();
     }
     search(searchingYear) {
-        return `We are searching for a movie made after: ${searchingYear}`;
+        return this.moviesService.search(searchingYear);
     }
     getOne(movieId) {
         return `This will return one movie with id : ${movieId}`;
