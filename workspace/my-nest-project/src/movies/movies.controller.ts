@@ -6,43 +6,36 @@ import {
   Param,
   Patch,
   Body,
-  Query,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
+import { Movie } from './entities/movie.entity';
 
 @Controller('movies') // URL에 movies가 붙음
 export class MoviesController {
-  construcor(private readonly moviesService: MoviesService) {}
+  constructor(private readonly moviesService: MoviesService) {}
 
   @Get()
-  getaAll() {
+  getAll(): Movie[] {
     return this.moviesService.getAll();
   }
 
-  // id 보다 아래에 있으면 search가 id로 인식됨...
-  @Get('search')
-  search(@Query('year') searchingYear: string) {
-    return this.moviesService.search(searchingYear);
-  }
-
   // id를 movieId로 받음
-  @Get('/:id')
-  getOne(@Param('id') movieId: string) {
-    return `This will return one movie with id : ${movieId}`;
+  @Get(':id')
+  getOne(@Param('id') movieId: string): Movie {
+    return this.moviesService.getOne(movieId);
   }
 
   @Post()
   create(@Body() movieData) {
-    console.log(movieData);
-    return movieData;
+    return this.moviesService.create(movieData);
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   remove(@Param('id') movieId: string) {
-    return `This will delete a movie with the id: ${movieId}`;
+    return this.moviesService.deleteOne(movieId);
   }
 
-  @Patch('/:id')
+  @Patch(':id')
   patch(@Param('id') movieId: string, @Body() updateData) {
     return {
       updatedMovie: movieId,
