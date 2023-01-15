@@ -6,6 +6,8 @@ import {
   Param,
   Patch,
   Body,
+  Req,
+  Res,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { Movie } from './entities/movie.entity';
